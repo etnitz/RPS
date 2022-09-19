@@ -3,6 +3,18 @@ from tkinter import *
 from tkinter import messagebox
 import mysql.connector
 
+def show():
+    myDB = mysql.connector.connect(host='localhost', user='root', password='password', database='rps_stats')
+    myCur = myDB.cursor()
+    myCur.execute('SELECT * FROM stats')
+    stats = myCur.fetchall()
+    for stat in stats:
+        win_score.config(text=str(stat[1]))
+        tie_score.config(text=str(stat[3]))
+        lose_score.config(text=str(stat[2]))
+
+    myDB.close()
+
 def roca():
     player = 'r'
     comp = random.choice(['r', 'p', 's'])    
@@ -24,7 +36,8 @@ def roca():
         messagebox.showwarning('Lose', 'Sorry, Paper beats Rock. Better luck next time!')
         myCur.execute('UPDATE stats SET loss = loss + 1')
         myDB.commit()
-
+        
+    show()
 
 def papel():
     player = 'p'
@@ -48,6 +61,8 @@ def papel():
         myCur.execute('UPDATE stats SET loss = loss + 1')
         myDB.commit()
 
+    show()
+
 def tijeras():
     player = 's'
     comp = random.choice(['r', 'p', 's'])
@@ -70,6 +85,8 @@ def tijeras():
         myCur.execute('UPDATE stats SET loss = loss + 1')
         myDB.commit()
 
+    show()
+
 window = Tk()
 
 window.geometry('1000x500')
@@ -84,6 +101,9 @@ score_lbl = Label(content, text='Score', font=('Times New Roman', 16, 'bold', 'u
 win_score_lbl = Label(content, text='W')
 tie_score_lbl = Label(content, text='T')
 lose_score_lbl = Label(content, text='L')
+win_score = Label(content)
+tie_score = Label(content)
+lose_score = Label(content)
 stats_lbl = Label(content, text='Stats', font=('Times New Roman', 16, 'bold', 'underline'))
 win_per_lbl = Label(content, text='W')
 tie_per_lbl = Label(content, text='T')
@@ -100,10 +120,15 @@ score_lbl.place(x=730, y=50)
 win_score_lbl.place(x=600, y=100)
 tie_score_lbl.place(x=750, y=100)
 lose_score_lbl.place(x=900, y=100)
+win_score.place(x=600, y=150)
+tie_score.place(x=750, y=150)
+lose_score.place(x=900, y=150)
 stats_lbl.place(x=730, y=250)
 win_per_lbl.place(x=600, y=300)
 tie_per_lbl.place(x=750, y=300)
 loss_per_lbl.place(x=900, y=300)
 delete_button.place(x=720, y=465)
+
+show()
 
 window.mainloop()
