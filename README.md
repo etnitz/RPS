@@ -12,6 +12,11 @@ A rock paper scissors game built with Python, Tkinter and MySQL with full CRUD. 
 3. MySQL
 
 ***
+### ***Screenshots***
+[Imgur](https://i.imgur.com/SDNTXg8.png)
+[Imgur](https://i.imgur.com/ciwlFwo.png)
+[Imgur](https://i.imgur.com/iWtYHmJ.png)
+[Imgur](https://i.imgur.com/gUo7WaG.png)
 ### ***Future Updates***
 - [ ] Add images
 - [ ] Do more styling
