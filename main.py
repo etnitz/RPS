@@ -1,7 +1,80 @@
-from calendar import c
-from cgitb import text
 import random
 from tkinter import *
+from tkinter import messagebox
+
+win_count = 0
+tie_count = 0
+loss_count = 0
+
+def roca():
+    global win_count
+    global tie_count
+    global loss_count
+    player = 'r'
+    comp = random.choice(['r', 'p', 's'])
+
+# Tie statement
+    if player == comp:
+        messagebox.showinfo('Tie', "You both chose Rock")
+        tie_count += 1
+        print(comp)
+# Win statment
+    elif comp == 's':
+        messagebox.showinfo('WIN!', 'You Win! Congratulations, Rock beats Scissors!')
+        win_count += 1
+        print(comp)
+# Lose statement
+    else:
+        messagebox.showwarning('Lose', 'Sorry, Paper beats Rock. Better luck next time!')
+        loss_count += 1
+        print(comp)
+
+
+def papel():
+    global win_count
+    global tie_count
+    global loss_count
+    player = 'p'
+    comp = random.choice(['r', 'p', 's'])
+
+# Tie statement
+    if player == comp:
+        messagebox.showinfo('Tie', "You both chose Paper")
+        tie_count += 1
+        print(comp)
+# Win statment
+    elif comp == 'r':
+        messagebox.showinfo('WIN!', 'You Win! Congratulations, Paper beats Rock!')
+        win_count += 1
+        print(comp)
+# Lose statement
+    else:
+        messagebox.showwarning('Lose', 'Sorry, Scissors beats Paper. Better luck next time!')
+        loss_count += 1
+        print(comp)
+
+def tijeras():
+    global win_count
+    global tie_count
+    global loss_count
+    player = 's'
+    comp = random.choice(['r', 'p', 's'])
+
+# Tie statement
+    if player == comp:
+        messagebox.showinfo('Tie', "You both chose Scissors")
+        tie_count += 1
+        print(comp)
+# Win statment
+    elif comp == 'p':
+        messagebox.showinfo('WIN!', 'You Win! Congratulations, Scissors beats paper!')
+        win_count += 1
+        print(comp)
+# Lose statement
+    else:
+        messagebox.showwarning('Lose', 'Sorry, Rock beats Scissors. Better luck next time!')
+        loss_count += 1
+        print(comp)
 
 window = Tk()
 
@@ -10,9 +83,9 @@ window.title("Rock Paper Scissors")
 
 content = Frame(window, width='1000', height='500')
 board = Frame(content, bg='blue', borderwidth=5, relief='ridge', width='500', height='500')
-rock = Button(content, text='Rock', font=('Times New Roman', 12, 'bold'))
-paper = Button(content, text='Paper', font=('Times New Roman', 12, 'bold'))
-scissors = Button(content, text='scissors', font=('Times New Roman', 12, 'bold'))
+rock = Button(content, text='Rock', font=('Times New Roman', 12, 'bold'), command=roca)
+paper = Button(content, text='Paper', font=('Times New Roman', 12, 'bold'), command=papel)
+scissors = Button(content, text='Scissors', font=('Times New Roman', 12, 'bold'), command=tijeras)
 score_lbl = Label(content, text='Score', font=('Times New Roman', 16, 'bold', 'underline'))
 win_score_lbl = Label(content, text='W')
 tie_score_lbl = Label(content, text='T')
