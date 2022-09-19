@@ -52,6 +52,19 @@ def loss_per():
         loss_score_per.config(text=f'{losses}%')
     myDB.close()
 
+def clear_data():
+    messagebox.showwarning('Deleting Data', "You are about to delete all your saved info.")
+    myDB = mysql.connector.connect(host='localhost', user='root', password='password', database='rps_stats')
+    myCur = myDB.cursor()
+    myCur.execute('UPDATE stats SET wins = 0, tie = 0, loss = 0')
+    myDB.commit()
+
+    show()
+    win_per()
+    tie_per()
+    loss_per()
+    myDB.close()
+
 
 def roca():
     player = 'r'
@@ -161,7 +174,7 @@ loss_per_lbl = Label(content, text='L')
 win_score_per = Label(content)
 tie_score_per = Label(content)
 loss_score_per = Label(content)
-delete_button = Button(content, text='Delete', bg='red')
+delete_button = Button(content, text='Delete', bg='red', command=clear_data)
 
 window.resizable(False, False)
 content.place(x=0, y=0)
