@@ -1,80 +1,74 @@
 import random
 from tkinter import *
 from tkinter import messagebox
-
-win_count = 0
-tie_count = 0
-loss_count = 0
+import mysql.connector
 
 def roca():
-    global win_count
-    global tie_count
-    global loss_count
     player = 'r'
-    comp = random.choice(['r', 'p', 's'])
+    comp = random.choice(['r', 'p', 's'])    
+    myDB = mysql.connector.connect(host='localhost', user='root', password='password', database='rps_stats')
+    myCur = myDB.cursor()
 
 # Tie statement
     if player == comp:
         messagebox.showinfo('Tie', "You both chose Rock")
-        tie_count += 1
-        print(comp)
+        myCur.execute('UPDATE stats SET tie = tie + 1')
+        myDB.commit()
 # Win statment
     elif comp == 's':
         messagebox.showinfo('WIN!', 'You Win! Congratulations, Rock beats Scissors!')
-        win_count += 1
-        print(comp)
+        myCur.execute('UPDATE stats SET wins = wins + 1')
+        myDB.commit()
 # Lose statement
     else:
         messagebox.showwarning('Lose', 'Sorry, Paper beats Rock. Better luck next time!')
-        loss_count += 1
-        print(comp)
+        myCur.execute('UPDATE stats SET loss = loss + 1')
+        myDB.commit()
 
 
 def papel():
-    global win_count
-    global tie_count
-    global loss_count
     player = 'p'
     comp = random.choice(['r', 'p', 's'])
+    myDB = mysql.connector.connect(host='localhost', user='root', password='password', database='rps_stats')
+    myCur = myDB.cursor()
 
 # Tie statement
     if player == comp:
         messagebox.showinfo('Tie', "You both chose Paper")
-        tie_count += 1
-        print(comp)
+        myCur.execute('UPDATE stats SET tie = tie + 1')
+        myDB.commit()
 # Win statment
     elif comp == 'r':
         messagebox.showinfo('WIN!', 'You Win! Congratulations, Paper beats Rock!')
-        win_count += 1
-        print(comp)
+        myCur.execute('UPDATE stats SET wins = wins + 1')
+        myDB.commit()
 # Lose statement
     else:
         messagebox.showwarning('Lose', 'Sorry, Scissors beats Paper. Better luck next time!')
-        loss_count += 1
-        print(comp)
+        myCur.execute('UPDATE stats SET loss = loss + 1')
+        myDB.commit()
 
 def tijeras():
-    global win_count
-    global tie_count
-    global loss_count
     player = 's'
     comp = random.choice(['r', 'p', 's'])
+    myDB = mysql.connector.connect(host='localhost', user='root', password='password', database='rps_stats')
+    myCur = myDB.cursor()
 
 # Tie statement
     if player == comp:
         messagebox.showinfo('Tie', "You both chose Scissors")
-        tie_count += 1
-        print(comp)
+        myCur.execute('UPDATE stats SET tie = tie + 1')
+        myDB.commit()
 # Win statment
     elif comp == 'p':
         messagebox.showinfo('WIN!', 'You Win! Congratulations, Scissors beats paper!')
-        win_count += 1
-        print(comp)
+        myCur.execute('UPDATE stats SET wins = wins + 1')
+        myDB.commit()
 # Lose statement
     else:
         messagebox.showwarning('Lose', 'Sorry, Rock beats Scissors. Better luck next time!')
-        loss_count += 1
-        print(comp)
+        myCur.execute('UPDATE stats SET loss = loss + 1')
+        myDB.commit()
 
 window = Tk()
 
