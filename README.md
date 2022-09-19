@@ -13,7 +13,7 @@ A rock paper scissors game built with Python, Tkinter and MySQL with full CRUD. 
 
 ***
 ### ***Screenshots***
-[Imgur](https://i.imgur.com/SDNTXg8.png)
+![Imgur](https://i.imgur.com/SDNTXg8.png)
 [Imgur](https://i.imgur.com/ciwlFwo.png)
 [Imgur](https://i.imgur.com/iWtYHmJ.png)
 [Imgur](https://i.imgur.com/gUo7WaG.png)
