@@ -15,6 +15,44 @@ def show():
 
     myDB.close()
 
+def win_per():
+    myDB = mysql.connector.connect(host='localhost', user='root', password='password', database='rps_stats')
+    myCur = myDB.cursor()
+    myCur.execute('SELECT * FROM stats')
+    stats = myCur.fetchall()
+    
+    for stat in stats:
+        total = stat[1] + stat[2] + stat[3]
+        wins = round((stat[1]/ total) * 100, 2)
+        win_score_per.config(text=f'{wins}%')
+    
+    myDB.close()
+
+def tie_per():
+    myDB = mysql.connector.connect(host='localhost', user='root', password='password', database='rps_stats')
+    myCur = myDB.cursor()
+    myCur.execute('SELECT * FROM stats')
+    stats = myCur.fetchall()
+    
+    for stat in stats:
+        total = stat[1] + stat[2] + stat[3]
+        ties = round((stat[3]/ total) * 100, 2)
+        tie_score_per.config(text=f'{ties}%')
+    
+    myDB.close()
+
+def loss_per():
+    myDB = mysql.connector.connect(host='localhost', user='root', password='password', database='rps_stats')
+    myCur = myDB.cursor()
+    myCur.execute('SELECT * FROM stats')
+    stats = myCur.fetchall()
+    for stat in stats:
+        total = stat[1] + stat[2] + stat[3]
+        losses = round((stat[2]/ total) * 100, 2)
+        loss_score_per.config(text=f'{losses}%')
+    myDB.close()
+
+
 def roca():
     player = 'r'
     comp = random.choice(['r', 'p', 's'])    
@@ -38,6 +76,10 @@ def roca():
         myDB.commit()
         
     show()
+    win_per()
+    tie_per()
+    loss_per()
+    myDB.close()
 
 def papel():
     player = 'p'
@@ -62,6 +104,10 @@ def papel():
         myDB.commit()
 
     show()
+    win_per()
+    tie_per()
+    loss_per()
+    myDB.close()
 
 def tijeras():
     player = 's'
@@ -86,6 +132,10 @@ def tijeras():
         myDB.commit()
 
     show()
+    win_per()
+    tie_per()
+    loss_per()
+    myDB.close()
 
 window = Tk()
 
@@ -108,6 +158,9 @@ stats_lbl = Label(content, text='Stats', font=('Times New Roman', 16, 'bold', 'u
 win_per_lbl = Label(content, text='W')
 tie_per_lbl = Label(content, text='T')
 loss_per_lbl = Label(content, text='L')
+win_score_per = Label(content)
+tie_score_per = Label(content)
+loss_score_per = Label(content)
 delete_button = Button(content, text='Delete', bg='red')
 
 window.resizable(False, False)
@@ -127,8 +180,14 @@ stats_lbl.place(x=730, y=250)
 win_per_lbl.place(x=600, y=300)
 tie_per_lbl.place(x=750, y=300)
 loss_per_lbl.place(x=900, y=300)
+win_score_per.place(x=590, y=350)
+tie_score_per.place(x=740, y=350)
+loss_score_per.place(x=890, y=350)
 delete_button.place(x=720, y=465)
 
 show()
+win_per()
+tie_per()
+loss_per()
 
 window.mainloop()
