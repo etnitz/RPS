@@ -23,8 +23,11 @@ def win_per():
     
     for stat in stats:
         total = stat[1] + stat[2] + stat[3]
-        wins = round((stat[1]/ total) * 100, 2)
-        win_score_per.config(text=f'{wins}%')
+        if total == 0:
+            win_score_per.config(text='0.0%')
+        else:
+            wins = round((stat[1]/ total) * 100, 2)
+            win_score_per.config(text=f'{wins}%')
     
     myDB.close()
 
@@ -36,8 +39,11 @@ def tie_per():
     
     for stat in stats:
         total = stat[1] + stat[2] + stat[3]
-        ties = round((stat[3]/ total) * 100, 2)
-        tie_score_per.config(text=f'{ties}%')
+        if total == 0:
+            tie_score_per.config(text='0.0%')
+        else:
+            ties = round((stat[3]/ total) * 100, 2)
+            tie_score_per.config(text=f'{ties}%')
     
     myDB.close()
 
@@ -48,8 +54,11 @@ def loss_per():
     stats = myCur.fetchall()
     for stat in stats:
         total = stat[1] + stat[2] + stat[3]
-        losses = round((stat[2]/ total) * 100, 2)
-        loss_score_per.config(text=f'{losses}%')
+        if total == 0:
+            loss_score_per.config(text='0.0%')
+        else:
+            losses = round((stat[2]/ total) * 100, 2)
+            loss_score_per.config(text=f'{losses}%')
     myDB.close()
 
 def clear_data():
